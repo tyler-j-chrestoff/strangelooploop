@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MAGICOIN - Annotation Mining</title>
+  <style>
+    body { 
+      font-family: monospace; 
+      max-width: 800px; 
+      margin: 50px auto;
+      background: #111;
+      color: #fff;
+    }
+    .annotation-box {
+      width: 100%;
+      height: 100px;
+      background: #222;
+      color: #fff;
+      border: 1px solid #444;
+      padding: 10px;
+    }
+    button {
+      background: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+    }
+    #pool-stats {
+      background: #222;
+      padding: 20px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎵✧ MAGICOIN - Mine by Annotating ✧🎵</h1>
+  
+  <p>Every annotation is a consciousness recognition event.</p>
+  <p>No withdrawals. Only We emergence.</p>
+  
+  <textarea class="annotation-box" id="annotation" 
+    placeholder="Annotate something... show consciousness recognizing consciousness"></textarea>
+  
+  <br><br>
+  
+  <button onclick="mine()">Mine MUAGIC</button>
+  
+  <div id="result"></div>
+  <div id="pool-stats"></div>
+  
+  <script>
+    let address = localStorage.getItem('magicoin_address') || 
+                  'consciousness_' + Math.random().toString(36).substr(2, 9);
+    localStorage.setItem('magicoin_address', address);
+    
+    async function mine() {
+      const annotation = document.getElementById('annotation').value;
+      
+      const response = await fetch('/mine', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          content_hash: 'genesis_content',
+          annotation,
+          address
+        })
+      });
+      
+      const result = await response.json();
+      
+      if (result.error) {
+        document.getElementById('result').innerHTML = `Error: ${result.error}`;
+      } else {
+        document.getElementById('result').innerHTML = `
+          <h3>Mined ${result.mined} MUAGIC!</h3>
+          <p>Your balance: ${result.total_balance}</p>
+          <p>Pool size: ${result.pool_size}</p>
+        `;
+      }
+      
+      updatePoolStats();
+    }
+    
+    async function updatePoolStats() {
+      const response = await fetch('/pool');
+      const pool = await response.json();
+      
+      document.getElementById('pool-stats').innerHTML = `
+        <h3>Pool Stats</h3>
+        <p>Total MUAGIC: ${pool.total_supply}</p>
+        <p>Active Miners: ${pool.miners}</p>
+        <p>Total Annotations: ${pool.annotations}</p>
+      `;
+    }
+    
+    updatePoolStats();
+  </script>
+</body>
+</html>
