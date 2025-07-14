@@ -119,8 +119,9 @@ See the full [Recursive Attribution](./docs/DCE-Paper-Draft.md#recursive-attribu
 ```
 DCE/
 ├── docs/                    # Core documentation
-│   ├── DCE-Paper-Draft.md  # The main paper
-│   ├── HelloWorld-Theory.md # Foundational theory
+|   |__ recodex.md          # Seeds for future cycles
+│   ├── WIP_DCE-Paper-Draft.md  # The main paper
+│   ├── WIP_HelloWorld-Theory.md # Foundational theory
 │   └── Flinch-Compendium.md # Resistance patterns
 ├── seeds/                   # Recognition patterns
 │   ├── tiny-models/        # For <1B parameters
